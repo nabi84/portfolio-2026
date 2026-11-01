@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Hyemi Holly’s personal website">
+<title>Hyemi Holly</title>
+<style>
+:root{color-scheme:light;--ink:#252525;--muted:#666;--line:#e5e5e5;--link:#3c6095}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#fff;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,"Noto Sans KR",sans-serif;font-size:15px;line-height:1.75}.wrap{width:min(100% - 40px,760px);margin:0 auto}header{display:flex;align-items:center;justify-content:space-between;padding:22px 0 19px;border-bottom:1px solid var(--line)}.brand{font-size:17px;font-weight:750;letter-spacing:-.03em;color:inherit;text-decoration:none}nav{display:flex;align-items:center;gap:20px;font-size:13px}.language{border:0;background:none;padding:0;color:var(--link);font:inherit;text-decoration:underline;text-underline-offset:3px;cursor:pointer}.language:focus-visible{outline:2px solid #3c6095;outline-offset:4px}a{color:var(--link);text-underline-offset:3px}a:hover{color:#1d3e70}a:focus-visible{outline:2px solid #3c6095;outline-offset:4px}section{padding:50px 0;border-bottom:1px solid var(--line)}.intro{padding:8px 0 58px}h1,h2{line-height:1.35;letter-spacing:-.035em}h1{font-size:30px;margin:0 0 8px;font-weight:750}h2{font-size:21px;margin:0 0 20px;font-weight:730}.eyebrow{color:var(--muted);font-size:14px;margin:0}.work-list{margin:27px 0 0;padding-left:1.5em}footer{display:flex;justify-content:space-between;align-items:center;padding:28px 0 40px;font-size:13px;color:#777}footer strong{font-size:14px;color:#444}@media(max-width:480px){.wrap{width:calc(100% - 36px)}header{padding-top:18px}section{padding:40px 0}.intro{padding:8px 0 48px}h1{font-size:27px}}
+</style>
+</head>
+<body id="top">
+<div class="wrap">
+<header><a class="brand" href="#top">Hyemi Holly</a><nav aria-label="Page navigation"><a href="#about" data-i18n="about">About</a><a href="#work" data-i18n="work">Work</a><button class="language" type="button" lang="ko" aria-label="한국어로 보기">한국어</button></nav></header>
+<main>
+<section class="intro" id="about"><p class="eyebrow">Designer &amp; Builder</p><p>Download resume</p><h2>CONTACT</h2><ul class="work-list"><li><a href="mailto:hyemiholly@gmail.com">hyemiholly@gmail.com</a></li><li><a href="https://linkedin.com/">LINKEDIN →</a></li><li><a href="https://github.com/">GITHUB →</a></li></ul></section>
+<section id="work"><h2 data-i18n="heading">Work &amp; notes</h2><ul class="work-list"><li><a href="https://account.adventhealth.com/" target="_blank" rel="noopener noreferrer">AdventHealth App</a></li><li>Fuji Clear</li></ul></section>
+</main>
+<footer><strong>Hyemi Holly</strong><a href="#top"><span data-i18n="top">Back to top ↑</span></a></footer>
+</div>
+<script>
+(() => {
+  const copy = {
+    en: { about: 'About', work: 'Work', heading: 'Work & notes', top: 'Back to top ↑' },
+    ko: { about: '소개', work: '작업', heading: '작업과 기록', top: '맨 위로 ↑' }
+  };
+  const button = document.querySelector('.language');
+  let language = 'en';
+  try { if (localStorage.getItem('hyemi-language') === 'ko') language = 'ko'; } catch (_) {}
+  function render() {
+    document.documentElement.lang = language;
+    document.querySelectorAll('[data-i18n]').forEach(element => { element.textContent = copy[language][element.dataset.i18n]; });
+    document.querySelector('nav').setAttribute('aria-label', language === 'en' ? 'Page navigation' : '페이지 메뉴');
+    document.querySelector('meta[name="description"]').content = language === 'en' ? 'Hyemi Holly’s personal website' : 'Hyemi Holly의 개인 웹사이트';
+    button.textContent = language === 'en' ? '한국어' : 'English';
+    button.lang = language === 'en' ? 'ko' : 'en';
+    button.setAttribute('aria-label', language === 'en' ? '한국어로 보기' : 'View in English');
+  }
+  button.addEventListener('click', () => {
+    language = language === 'en' ? 'ko' : 'en';
+    try { localStorage.setItem('hyemi-language', language); } catch (_) {}
+    render();
+  });
+  render();
+})();
+</script>
+</body>
+</html>
